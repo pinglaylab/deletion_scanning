@@ -98,3 +98,40 @@ scShred_regressed <- RunUMAP(scShred_regressed, dims = dims_use)
 
 # ---- Save  ----
 saveRDS(scShred_regressed, file = file.path(run_dir, "seurat_qc_umap.rds"))
+
+# --- Extract and save useful information ----
+scShred_regressed_tibble <- scShred_regressed@meta.data %>% 
+  rownames_to_column("barcode") %>%
+  as_tibble() %>%
+  mutate(barcode = str_remove(barcode, "-1"))
+
+passing_cells <- scShred_regressed_tibble %>% pull(barcode)
+write_tsv(tibble(passing_cells = passing_cells), "./scShred/passing_cells_v2.tsv")
+
+# ---- Annotate with T7 IST metadata - generated in T7_IST_processing.R ----
+passing_clones_v2 <- read_tsv("./scShred/passing_clones_v2.tsv.gz")
+sc_deletions_filtered_v2 <- read_tsv("./scShred/scShred_v2_deletions_filtered.tsv.gz")
+
+clone_metadata <- passing_clones_v2 %>% 
+  mutate(cell = paste0(cell, "-1")) %>%
+  column_to_rownames("cell")
+
+deletion_metadata <- sc_deletions_filtered_v2 %>% 
+  group_by(cell) %>%
+  summarise(n_deletions = n_distinct(deletion_label), deletion = paste(deletion_label, collapse = "_"), n_umi = sum(n_umi), .groups = "drop") %>%
+  dplyr::select(cell, deletion, n_umi, n_deletions) %>%
+  mutate(cell = paste0(cell, "-1")) %>%
+  column_to_rownames("cell")
+
+# ---- Add to Seurat object ----
+scShred_regressed <- AddMetaData(scShred_regressed, clone_metadata)
+scShred_regressed <- AddMetaData(scShred_regressed, deletion_metadata)
+
+# Extract a data set with the interesting genes and metadata
+scShred_goi <- FetchData(scShred_regressed, vars = c("RBM3", "WDR13", "GFP", "Clone", "deletion", "nCount_RNA", "n_umi", "seurat_clusters")) %>%
+  rownames_to_column("cell_barcode") %>%
+  mutate(cell_barcode = str_remove(cell_barcode, "-1")) %>%
+  as_tibble()
+
+write_tsv(scShred_goi, "./scShred/scShred_goi.tsv.gz")
+

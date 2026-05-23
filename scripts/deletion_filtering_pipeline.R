@@ -120,12 +120,7 @@ bed_L10k_d15 <- list.files(path = "./prc_data/deletions", pattern = "^L10K_d15.*
 bed_L10k_d25 <- list.files(path = "./prc_data/deletions", pattern = "^L10K_d25.*_target\\.bed.gz$", full.names = TRUE)
 bed_L10k_d25_GFP <- list.files(path = "./prc_data/deletions", pattern = "^L10K_d25.*_GFP\\.bed.gz$", full.names = TRUE)
 
-parameters <- read_tsv("./prc_data/deletions/parameters_fit.tsv")
-mu_hat <- parameters$mu_hat
-sigma_hat <- parameters$sigma_hat
-
 # ==== Identify deletions ====
-
 deletions_1KV3_d4 <- read_deletions(bed_1KV3, "deletions_1KV3")
 deletions_1KV3_d18 <- read_deletions(bed_1KV3_haploid, "deletions_1KV3_d18_haploid")
 deletions_L10K_d3 <- read_deletions(bed_L10k_d3, "deletions_L10k_d3")
@@ -146,8 +141,6 @@ deletions_1KV3_mapped <- map_deletions("./prc_data/deletions_prc/deletions_1KV3_
 deletions_1KV3_late_mapped <- map_deletions("./prc_data/deletions_prc/deletions_1KV3_d18_haploid_raw.tsv.gz", sites_1KV3)
 deletions_min5k_mapped <- map_deletions("./prc_data/deletions_prc/deletions_min5k_raw.tsv.gz", sites_PB_min5k)
 deletions_c4_mapped <- map_deletions("./prc_data/deletions_prc/deletions_c4_raw.tsv.gz", site_c4)
-deletions_50k_mapped <- read_tsv("./prc_data/deletions_prc/deletions_50k_mapped.tsv")
-deletions_5k_mapped <- read_tsv("./prc_data/deletions_prc/deletions_5k_mapped.tsv")
 
 # ==== Filtering for unique deletions ====
 
