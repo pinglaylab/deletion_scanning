@@ -1,6 +1,8 @@
 library(tidyverse)
 library(fuzzyjoin)
 
+setwd("/Users/jonas.koeppel/Library/CloudStorage/OneDrive-Personal/postdoc/submission/git")
+
 # ==== Defining functions ====
 rc <- function(x) {toupper(spgs::reverseComplement(x))}
 
@@ -101,7 +103,6 @@ find_unique_deletions <- function(deletions_mapped, gaplength = 300) {
 # ==== Loading files ====
 
 sites_PB_5k_R1 <- read_tsv("./prc_data/bc/sites_PB_5k_R1.tsv") %>% mutate(cell_line = "5K")
-sites_PB_min5k <- read_tsv("./prc_data/bc/sites_PB_min5k.tsv") %>% mutate(cell_line = "min5k")
 sites_L10K <- read_tsv("./prc_data/bc/sites_L10K.tsv") %>% mutate(cell_line = "L10K")
 sites_L10K_GFP <- read_tsv("./prc_data/bc/sites_L10K_GFP.tsv") %>% mutate(cell_line = "L10K")
 sites_1KV3 <- read_tsv("./prc_data/bc/sites_1KV3.tsv") %>% mutate(cell_line = "1KV3")
@@ -109,7 +110,6 @@ sites_1KV3 <- read_tsv("./prc_data/bc/sites_1KV3.tsv") %>% mutate(cell_line = "1
 bed_50k <- list.files(path = "./prc_data/deletions", pattern = "^50k.*\\.bed.gz$", full.names = TRUE)
 bed_5k <- list.files(path = "./prc_data/deletions", pattern = "^5K_d15.*\\.bed.gz$", full.names = TRUE)
 bed_5k_d3 <- list.files(path = "./prc_data/deletions", pattern = "^5K_d3.*\\.bed.gz$", full.names = TRUE)
-bed_min5k <- list.files(path = "./prc_data/deletions", pattern = "^min5k_d.*\\.bed.gz$", full.names = TRUE)
 bed_1KV3 <- list.files(path = "./prc_data/deletions", pattern = "^1KV3.*\\.bed.gz$", full.names = TRUE)
 bed_1KV3_haploid <- list.files(path = "./prc_data/deletions", pattern = "^1KV3_d18.*\\.bed.gz$", full.names = TRUE)
 bed_c4 <- list.files(path = "./prc_data/deletions", pattern = "^c4_GFP.*\\.bed.gz$", full.names = TRUE)
@@ -139,7 +139,6 @@ deletions_L10K_mapped <- map_deletions("./prc_data/deletions_prc/deletions_L10K_
 deletions_L10K_GFP_mapped <- map_deletions("./prc_data/deletions_prc/deletions_L10K_GFP_raw.tsv.gz", sites_L10K_GFP, reference_chr = "LV_egfp_full")
 deletions_1KV3_mapped <- map_deletions("./prc_data/deletions_prc/deletions_1KV3_raw.tsv.gz", sites_1KV3)
 deletions_1KV3_late_mapped <- map_deletions("./prc_data/deletions_prc/deletions_1KV3_d18_haploid_raw.tsv.gz", sites_1KV3)
-deletions_min5k_mapped <- map_deletions("./prc_data/deletions_prc/deletions_min5k_raw.tsv.gz", sites_PB_min5k)
 deletions_c4_mapped <- map_deletions("./prc_data/deletions_prc/deletions_c4_raw.tsv.gz", site_c4)
 
 # ==== Filtering for unique deletions ====
@@ -149,7 +148,6 @@ deletions_1KV3_late_unique <- find_unique_deletions(deletions_1KV3_late_mapped)
 deletions_L10K_unique <- find_unique_deletions(deletions_L10K_mapped)
 deletions_L10K_GFP_unique <- find_unique_deletions(deletions_L10K_GFP_mapped)
 deletions_5k_unique <- find_unique_deletions(deletions_5k_mapped)
-deletions_min5k_unique <- find_unique_deletions(deletions_min5k_mapped)
 deletions_50k_unique <- find_unique_deletions(bind_rows(deletions_50k_mapped, deletions_mn_mapped))
 deletions_c4_unique <- find_unique_deletions(deletions_c4_mapped)
 

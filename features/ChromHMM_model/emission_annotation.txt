@@ -1,0 +1,16 @@
+emission	name	abbreviation	color
+E1	Genic heterochromatin	Het	#EEDDDD
+E2	Heterochromatin	Het	#EEDDDD
+E3	Transcription	Tx	#387544
+E4	Strong transcription	TxS	#387644
+E5	Accessible heterochromatin	DNaseG	#CCCCCC
+E6	Poised TSS	TssB	#B82914
+E7	Active TSS	TssA	#C83934
+E8	Flanking active TSS	TssAFlnk	#CC5036
+E9	Genic Enhancer	EnhG	#EFD3BB
+E10	Enhancer	Enh	#EFE8C1
+E11	Enhancer open	EnhS	#EEA800
+E12	Quiescent genic	Quies	#EEEEEE
+E13	Quiescent	Quies	#EEEEEE
+E14	Repressed polycomb	RepP	#EEDDEE
+E15	Weak repressed polycomb	RepPW	#EEDDEE
