@@ -1,4 +1,5 @@
-library(igraph)
+library(tidyverse)
+library(stringdist)
 
 # ==== Functions ====
 mode_value <- function(x) {

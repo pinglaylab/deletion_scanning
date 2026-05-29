@@ -21,10 +21,10 @@ rawdata="/path/to/rawdata/"
         --thread 10
 done < $rawdata/samples.txt
 
-# (2) Trim CS1 or CS2 #CCTTAGCCGCTAATAGGTGAGC TTGCTAGGACCGGCCTTAAAGC
+# (2) Trim CS1 #TTGCTAGGACCGGCCTTAAAGC 
 while read -r SAMPLE; do
   cutadapt \
-    -G "^CCTTAGCCGCTAATAGGTGAGC" \
+    -G "^TTGCTAGGACCGGCCTTAAAGC" \
     --discard-untrimmed \
     -j 10 \
     -o "fastq/${SAMPLE}_trimmed_R1.fastq" \

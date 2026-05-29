@@ -1,6 +1,7 @@
+#!/usr/bin/env python3
 """
-Script to identify translocations in a BAM file from nanopore sequencing.
-Outputs a TSV file with translocation breakpoints and a BAM file with the reads supporting translocations.
+Identify deletion-supporting split reads in a BAM file from nanopore sequencing.
+Outputs a TSV file with deletion breakpoints and a BAM file with the supporting reads.
 
 Read name structures supported:
 
@@ -15,7 +16,7 @@ Read name structures supported:
      7dbdf249-64ae-4cb2-b1ec-405c2196197a_CCGTACCCGG
 
 Usage:
-    python translocation_finder.py input.bam output.tsv output.bam
+    python find_deletions_delamp.py input.bam output.tsv output.bam
 """
 
 import pysam
@@ -24,7 +25,7 @@ import csv
 from collections import defaultdict
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Identify translocations from a BAM file.")
+    parser = argparse.ArgumentParser(description="Identify deletion-supporting split reads from a BAM file.")
     parser.add_argument("bamfile", help="Input BAM file")
     parser.add_argument("output_tsv", help="Output TSV file with translocation breakpoints")
     parser.add_argument("output_bam", help="Output BAM file with reads supporting translocations")
@@ -106,82 +107,6 @@ def main():
             strand_2 = '-' if new_aln.is_reverse else '+'
 
             writer.writerow([read_name, start, end, chr_2, strand_2, barcode, cell, umi])
-
-if __name__ == "__main__":
-    main()
-koeppelj@nexus3:/net/shendure/vol10/projects/jonas/nanopore/delamp$ cat sample_fastq_q30.py 
-#!/usr/bin/env python3
-import argparse, gzip, random, sys
-
-def open_maybe_gz(path):
-    return gzip.open(path, "rt") if path.endswith(".gz") else open(path, "rt")
-
-def phred_scores(qual: str):
-    # Standard FASTQ Phred+33
-    return [ord(c) - 33 for c in qual.rstrip("\n")]
-
-def passes(scores, mode, q, frac):
-    if not scores:
-        return False
-    if mode == "mean":
-        return (sum(scores) / len(scores)) >= q
-    if mode == "min":
-        return min(scores) >= q
-    if mode == "frac":
-        good = sum(s >= q for s in scores) / len(scores)
-        return good >= frac
-    raise ValueError("unknown mode")
-
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("fastq", help="FASTQ or FASTQ.GZ")
-    ap.add_argument("k", type=int, help="Number of reads to sample")
-    ap.add_argument("--q", type=int, default=30, help="Q threshold (default 30)")
-    ap.add_argument("--mode", choices=["mean", "min", "frac"], default="mean",
-                    help="How to apply Q threshold across a read")
-    ap.add_argument("--frac", type=float, default=0.9,
-                    help="For --mode frac: required fraction of bases >= Q (default 0.9)")
-    ap.add_argument("--seed", type=int, default=None)
-    args = ap.parse_args()
-
-    if args.seed is not None:
-        random.seed(args.seed)
-
-    reservoir = []
-    seen_passing = 0
-
-    with open_maybe_gz(args.fastq) as fh:
-        while True:
-            h = fh.readline()
-            if not h:
-                break
-            s = fh.readline()
-            p = fh.readline()
-            ql = fh.readline()
-            if not ql:
-                break
-
-            scores = phred_scores(ql)
-            if not passes(scores, args.mode, args.q, args.frac):
-                continue
-
-            seen_passing += 1
-            rec = (h, s, p, ql)
-
-            if len(reservoir) < args.k:
-                reservoir.append(rec)
-            else:
-                j = random.randrange(seen_passing)
-                if j < args.k:
-                    reservoir[j] = rec
-
-    if len(reservoir) < args.k:
-        print(f"WARNING: only {len(reservoir)} reads passed filter; requested {args.k}.",
-              file=sys.stderr)
-
-    out = sys.stdout
-    for h, s, p, ql in reservoir:
-        out.write(h); out.write(s); out.write(p); out.write(ql)
 
 if __name__ == "__main__":
     main()

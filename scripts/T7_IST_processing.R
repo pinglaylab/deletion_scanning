@@ -53,14 +53,14 @@ map_barcodes_to_clones <- function(df, max_dist = 1, name) {
 
 # ==== Loading in files
 passing_cells <- read_tsv("./scShred/passing_cells_v2.tsv")
-clones_scShred <- read_tsv("./clones_scShred.tsv")
+clones_scShred <- read_tsv("./prc_data/clones_scShred.tsv")
 clones_scShred_v2 <- clones_scShred %>% mutate(barcode = paste0(substr(barcode, 1, 4), substr(barcode, 6, nchar(barcode))))
 
 sc_deletions_v2_raw <- read_tsv("./scShred/deletions/sc_deletions.tsv.gz") %>%
   mutate(barcode = paste0(substr(barcode, 1, 4), substr(barcode, 6, nchar(barcode)))) # remove the N in positions of low diversity on the sequencing run
 
 # ==== Create objects  ====
-sc_mapped_v2 <- sc_deletions_v2 %>%
+sc_mapped_v2 <- sc_deletions_v2_raw %>%
   filter(cell %in% passing_cells) %>%
   map_barcodes_to_clones(name = "scShred_v2")
 

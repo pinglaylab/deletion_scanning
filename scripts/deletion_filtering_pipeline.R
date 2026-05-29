@@ -103,6 +103,7 @@ find_unique_deletions <- function(deletions_mapped, gaplength = 300) {
 # ==== Loading files ====
 
 sites_PB_5k_R1 <- read_tsv("./prc_data/bc/sites_PB_5k_R1.tsv") %>% mutate(cell_line = "5K")
+sites_PB_50k <- read_tsv("./prc_data/bc/sites_PB_50k.tsv") %>% mutate(cell_line = "50k")
 sites_L10K <- read_tsv("./prc_data/bc/sites_L10K.tsv") %>% mutate(cell_line = "L10K")
 sites_L10K_GFP <- read_tsv("./prc_data/bc/sites_L10K_GFP.tsv") %>% mutate(cell_line = "L10K")
 sites_1KV3 <- read_tsv("./prc_data/bc/sites_1KV3.tsv") %>% mutate(cell_line = "1KV3")
@@ -130,6 +131,12 @@ deletions_50k <- read_deletions(bed_50k, "deletions_50k")
 deletions_5k_d3 <- read_deletions(bed_5k_d3, "deletions_5k_d3") %>% mutate(sample = paste(ploidy, day, replicate))
 deletions_5k_d15 <- read_deletions(bed_5k, "deletions_5k_d15") %>% mutate(sample = paste(ploidy, day, replicate))
 
+# save combined deletions
+bind_rows(deletions_5k, deletions_5k_d3a, deletions_5k_d3b, deletions_5k_d3_pA) %>% write_tsv("/Users/jonas.koeppel/Library/CloudStorage/OneDrive-Personal/postdoc/data/prc_data/deletions_prc/deletions_5k_raw.tsv.gz")
+bind_rows(deletions_min5ka, deletions_min5kb, deletions_min5kc) %>% write_tsv("/Users/jonas.koeppel/Library/CloudStorage/OneDrive-Personal/postdoc/data/prc_data/deletions_prc/deletions_min5k_raw.tsv.gz")
+bind_rows(deletions_L10K_d3, deletions_L10K_d15, deletions_L10K_d25) %>% write_tsv("/Users/jonas.koeppel/Library/CloudStorage/OneDrive-Personal/postdoc/data/prc_data/deletions_prc/deletions_L10K_raw.tsv.gz")
+
+
 # ==== Map deletions to beacon barcodes ====
 
 # Map deletions to beacon barcodes
@@ -139,7 +146,6 @@ deletions_L10K_mapped <- map_deletions("./prc_data/deletions_prc/deletions_L10K_
 deletions_L10K_GFP_mapped <- map_deletions("./prc_data/deletions_prc/deletions_L10K_GFP_raw.tsv.gz", sites_L10K_GFP, reference_chr = "LV_egfp_full")
 deletions_1KV3_mapped <- map_deletions("./prc_data/deletions_prc/deletions_1KV3_raw.tsv.gz", sites_1KV3)
 deletions_1KV3_late_mapped <- map_deletions("./prc_data/deletions_prc/deletions_1KV3_d18_haploid_raw.tsv.gz", sites_1KV3)
-deletions_c4_mapped <- map_deletions("./prc_data/deletions_prc/deletions_c4_raw.tsv.gz", site_c4)
 
 # ==== Filtering for unique deletions ====
 
@@ -149,8 +155,6 @@ deletions_L10K_unique <- find_unique_deletions(deletions_L10K_mapped)
 deletions_L10K_GFP_unique <- find_unique_deletions(deletions_L10K_GFP_mapped)
 deletions_5k_unique <- find_unique_deletions(deletions_5k_mapped)
 deletions_50k_unique <- find_unique_deletions(bind_rows(deletions_50k_mapped, deletions_mn_mapped))
-deletions_c4_unique <- find_unique_deletions(deletions_c4_mapped)
-
 
 # ==== Deletions from minion sequencing ====
 

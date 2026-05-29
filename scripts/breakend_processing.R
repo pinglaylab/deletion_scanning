@@ -8,12 +8,13 @@ setwd("/Users/jonas.koeppel/Library/CloudStorage/OneDrive-Personal/postdoc/submi
 
 chr_list <- sprintf("chr%s",c(seq(1,22,1), "X", "Y"))
 
+# ==== Define functions ====
+rc <- function(x) {toupper(spgs::reverseComplement(x))}
+
 mode_value <- function(x) {
   ux <- unique(x)
   ux[which.max(tabulate(match(x, ux)))]
 }
-
-# ==== Define functions ====
 
 # Function to extract soft-clipped sequence from a CIGAR string and read sequence.
 extractSoftClip <- function(cigar, seq) {
@@ -165,6 +166,7 @@ collapse_junctions <- function(junctions, construct) {
 
 # ==== Loading in files ====
 sites_PB_5k_R1 <- read_tsv("./prc_data/bc/sites_PB_5k_R1.tsv") %>% mutate(cell_line = "5K")
+sites_PB_50k <- read_tsv("./prc_data/bc/sites_PB_50k.tsv") %>% mutate(cell_line = "50k")
 sites_L10K <- read_tsv("./prc_data/bc/sites_L10K.tsv") %>% mutate(cell_line = "L10K")
 sites_L10K_GFP <- read_tsv("./prc_data/bc/sites_L10K_GFP.tsv") %>% mutate(cell_line = "L10K")
 sites_1KV3 <- read_tsv("./prc_data/bc/sites_1KV3.tsv") %>% mutate(cell_line = "1KV3")
