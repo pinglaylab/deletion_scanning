@@ -1,0 +1,72 @@
+LOCUS       pSmart_Nla_crGFP107     2173 bp ds-DNA     circular     29-MAY-2026
+DEFINITION  .
+SOURCE      synthetic DNA construct
+  ORGANISM  synthetic DNA construct
+COMMENT     Imported using the Genbank importer.
+            File name: 178883-attachment_HMOPw6zDggjDvMOaw4PCgQ.gbk
+FEATURES             Location/Qualifiers
+     promoter        27..290
+                     /label="U6 promoter"
+                     /ApEinfo_revcolor="#d6b295"
+                     /ApEinfo_fwdcolor="#d6b295"
+                     /note="U6 promoter"
+                     /note="color: #8080ff"
+     misc_feature    292..323
+                     /label="Type IC-CRISPR-repeat"
+                     /ApEinfo_revcolor="#b1ff67"
+                     /ApEinfo_fwdcolor="#b1ff67"
+                     /note="color: #a6acb3"
+     misc_feature    324..358
+                     /label=201
+                     /ApEinfo_revcolor="#f8d3a9"
+                     /ApEinfo_fwdcolor="#f8d3a9"
+     misc_feature    359..390
+                     /label="Type IC-CRISPR-repeat"
+                     /ApEinfo_revcolor="#b1ff67"
+                     /ApEinfo_fwdcolor="#b1ff67"
+                     /note="color: #a6acb3"
+     misc_feature    588..1400
+                     /label="aminoglycoside phosphotransferase (KanR)"
+                     /ApEinfo_revcolor="#ff9ccd"
+                     /ApEinfo_fwdcolor="#ff9ccd"
+                     /note="aminoglycoside phosphotransferase (KanR)"
+                     /note="color: #ff8000"
+ORIGIN
+        1 ccaagctcgg atccgatatc gacgtcaagg tcgggcagga agagggccta tttcccatga
+       61 ttccttcata tttgcatata cgatacaagg ctgttagaga gataattaga attaatttga
+      121 ctgtaaacac aaagatatta gtacaaaata cgtgacgtag aaagtaataa tttcttgggt
+      181 agtttgcagt tttaaaatta tgttttaaaa tggactatca tatgcttacc gtaacttgaa
+      241 agtatttcga tttcttggct ttatatatct tgtggaaagg acgaaacacc Gtcagccgcc
+      301 tctaggcggc tgtgtgttga aactcatcta catagtaccg cctccatATT TAGGTGACtc
+      361 agccgcctct aggcggctgt gtgttgaaac ttttttttct agatatcgct caatactgac
+      421 catttaaatc atacctgacc tccatagcag aaagtcaaaa gcctccgacc ggaggctttt
+      481 gacttgatcg gcacgtaaga ggttccaact ttcaccataa tgaaataaga tcactaccgg
+      541 gcgtattttt tgagttatcg agattttcag gagctaagga agctaaaatg agccatattc
+      601 aacgggaaac gtcttgctcg aggccgcgat taaattccaa catggatgct gatttatatg
+      661 ggtataaatg ggctcgcgat aatgtcgggc aatcaggtgc gacaatctat cgattgtatg
+      721 ggaagcccga tgcgccagag ttgtttctga aacatggcaa aggtagcgtt gccaatgatg
+      781 ttacagatga gatggtcagg ctaaactggc tgacggaatt tatgcctctt ccgaccatca
+      841 agcattttat ccgtactcct gatgatgcat ggttactcac cactgcgatc ccagggaaaa
+      901 cagcattcca ggtattagaa gaatatcctg attcaggtga aaatattgtt gatgcgctgg
+      961 cagtgttcct gcgccggttg cattcgattc ctgtttgtaa ttgtcctttt aacggcgatc
+     1021 gcgtatttcg tctcgctcag gcgcaatcac gaatgaataa cggtttggtt ggtgcgagtg
+     1081 attttgatga cgagcgtaat ggctggcctg ttgaacaagt ctggaaagaa atgcataagc
+     1141 ttttgccatt ctcaccggat tcagtcgtca ctcatggtga tttctcactt gataacctta
+     1201 tttttgacga ggggaaatta ataggttgta ttgatgttgg acgagtcgga atcgcagacc
+     1261 gataccagga tcttgccatc ctatggaact gcctcggtga gttttctcct tcattacaga
+     1321 aacggctttt tcaaaaatat ggtattgata atcctgatat gaataaattg cagtttcact
+     1381 tgatgctcga tgagtttttc tgagggccca aatgtaatca cctggctcac cttcgggtgg
+     1441 gcctttctgc gttgctggcg tttttccata ggctccgccc ccctgacgag catcacaaaa
+     1501 atcgatgctc aagtcagaGG Tggcgaaacc cgacaggact ataaagatac caggcgtttc
+     1561 cccctggaag ctccctcgtg cgctctcctg ttccgaccct gccgcttacc ggatacctgt
+     1621 ccgcctttct cccttcggga agcgtggcgc tttctcatag ctcacgctgt aggtatctca
+     1681 gttcggtgta ggtcgttcgc tccaagctgg gctgtgtgca cgaacccccc gttcagcccg
+     1741 accgctgcgc cttatccggt aactatcgtc ttgagtccaa cccggtaaga cacgacttat
+     1801 cgccactggc agcagccact ggtaacagga ttagcagagc gaggtatgta ggcggtgcta
+     1861 cagagttctt gaagtggtgg cctaactacg gctacactag aagaacagta tttggtatct
+     1921 gcgctctgct gaagccagtt acctcggaaa aagagttggt agctcttgat ccggcaaaca
+     1981 aaccaccgct ggtagcggtg gtttttttgt ttgcaagcag cagattacgc gcagaaaaaa
+     2041 aggatctcaa gaagatcctt tgattttcta ccgaagaaag gcccacccgt gaaggtgagc
+     2101 cagtgagttg attgcagtcc agttacgctg gagtctgagg ctcgtcctga atgatatcaa
+     2161 gcttgaattc gtt
+//

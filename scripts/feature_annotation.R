@@ -139,5 +139,8 @@ deletions_annot <- deletions_final %>%
   mutate(`SV length (log10)` = log10(length), `Coding gene dispensability (CRISPR)` = ifelse(is.na(`Coding gene dispensability (CRISPR)`), 0, `Coding gene dispensability (CRISPR)`), `lncRNA dispensability (CRISPR)` = ifelse(is.na(`lncRNA dispensability (CRISPR)`), 0, `lncRNA dispensability (CRISPR)`)) %>%
   dplyr::select(-length)
 
+deletions_annot_pval <- deletions_annot %>% mutate(group = paste(selection, ploidy)) %>% left_join(pvals_all, by = c("barcode", "chr", "group"))
+test <- filter(deletions_annot_pval, pval_deviating < 0.001)
 write_tsv(deletions_annot, "./prc_data/deletions/annotated_deletions.tsv.gz")
+write_tsv(deletions_annot_pval, "./prc_data/deletions/annotated_deletions_pvals.tsv.gz")
 
